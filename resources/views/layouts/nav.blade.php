@@ -6,7 +6,7 @@
         </a>
         <ul class="nav navbar-nav navbar-right">
             <!-- Authentication Links -->
-            <button class="btn print btn-sm bg-info" onclick="window.print()">PRINT</button>
+            <a class="btn print btn-sm bg-info text-white" href="/print">PRINT</a>
         </ul>
     </div>
 </nav>

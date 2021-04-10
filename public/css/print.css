@@ -1,0 +1,12 @@
+*{
+    font-size: 24px;
+    color: black;
+    font-family: 'Times New Roman', Times, serif;
+}
+.TestState{
+    font-size: 44px;
+    font-weight: bold;
+}
+.list-group-item{
+    border: 1px solid rgba(0, 0, 0, 1);
+}

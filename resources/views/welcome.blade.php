@@ -3,13 +3,15 @@
 <div class="flex-center position-ref full-height">
     <div class="row title_top">
         <div class="col-md-5 text-center title-text-left">
-            Кыргыз Республикасынын Өкмөтүнө караштуу <br>Жазаларды аткаруу мамлекеттик кызматы
+            {{-- Кыргыз Республикасынын Өкмөтүнө караштуу <br>Жазаларды аткаруу мамлекеттик кызматы --}}
+            {{$settings->where('lang',"kg")->first()->mark}}
         </div>
         <div class="col-md-2">
         <img src="{{asset("/img/logo.png")}}" alt="" class="shadow" style="height: 120px;">
         </div>
         <div class="col-md-5 text-center title-text-right">
-            Государственная служба исполнения наказаний при <br>Правительстве Кыргызской Республики
+            {{-- Государственная служба исполнения наказаний при <br>Правительстве Кыргызской Республики --}}
+            {{$settings->where('lang',"ru")->first()->mark}}
         </div>
     </div>
     <div class="content text-center">
@@ -24,12 +26,10 @@
         @endif
         <div class="card rounded-0 shadow-lg border-0">
             <div class="card-body ">
-
-
                 <form action="/start" method="post" class="row justify-content-center">
                     @csrf
                     <div class="col-sm-12 text-center">
-                        <i><span class="col-md-12">Тил танданыз / Выберите язык</span> </i> <br>
+                        <i><span class="col-md-12">Тил тандаңыз / Выберите язык</span> </i> <br>
                         <div class="form-check form-check-inline">
                             <input class="form-check-input" type="radio" name="lang" id="lang_kg" onchange="startTestBrnLang()" value="kg" checked required>
                             <label class="form-check-label" for="lang_kg">Кыргызча</label>
@@ -42,9 +42,9 @@
                     <div class="border-success w-75 mt-3 mb-3 border"></div>
 
                     <div class="col-md-8 form-group text-center">
-                        <span id="enter_code_label">Кодунузду жазыныз</span>
+                        <span id="enter_code_label">Кодуңузду жазыңыз</span>
                         <input type="text" class="form-control form-control-sm rounded-0 d-inline-block" name="code" required autocomplete="off"/>
-                        <button class="btn  mt-4 btn-success btn-sm rounded-0 " id="enter_code_btn">Кируу</button>
+                        <button class="btn  mt-4 btn-success btn-sm rounded-0 " id="enter_code_btn">Кирүү</button>
                     </div>
                 </form>
             </div>
@@ -59,8 +59,8 @@
             const btn = document.getElementById("enter_code_btn");
 
             if(radio[0].checked){
-                btn.textContent = "Кируу";
-                document.getElementById("enter_code_label").innerHTML = "Кодунузду жазыныз";
+                btn.textContent = "Кирүү";
+                document.getElementById("enter_code_label").innerHTML = "Кодуңузду жазыңыз";
             }else{
                 btn.textContent="Войти";
                 document.getElementById("enter_code_label").innerHTML = "Введите ваш код";

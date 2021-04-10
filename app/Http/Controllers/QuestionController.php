@@ -85,7 +85,8 @@ class QuestionController extends Controller
                 "msg"=>"Ошибка вопросы и варианты не добавлены",
             ];
         }
-        return redirect()->back()->with("msg",$ret);
+        $headers = [];
+        return response()->json($ret, 200, $headers);
     }
 
     /**
@@ -117,9 +118,53 @@ class QuestionController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, $id)
+    public function update(Request $request)
     {
-        //
+        $rules = [
+            "question_ru"=>"required",
+            "question_kg"=>"required",
+            "a_kg"=>"required",
+            "a_ru"=>"required",
+            "b_ru"=>"required",
+            "b_kg"=>"required",
+            "c_ru"=>"nullable",
+            "c_kg"=>"nullable",
+            "d_ru"=>"nullable",
+            "d_kg"=>"nullable",
+            "answer"=>"required",
+
+        ];
+        if($this->validate($request, $rules, [])){
+            $question = Question::find($request->id);
+            $question->question_ru = $request->question_ru;
+            $question->question_kg = $request->question_kg;
+            $question->a_ru = $request->a_ru;
+            $question->a_kg = $request->a_kg;
+            $question->b_ru = $request->b_ru;
+            $question->b_kg = $request->b_kg;
+            $question->c_kg = $request->c_kg;
+            $question->c_ru = $request->c_ru;
+            $question->d_kg = $request->d_kg;
+            $question->d_ru = $request->d_ru;
+            $question->answer = $request->answer;
+            if($question->save()){
+                $ret = [
+                    "status"=>"ok",
+                    "msg"=>"Вопросы и варианты добавлены успешно",
+                ];
+            }else{
+                $ret = [
+                    "status"=>"error",
+                    "msg"=>"Ошибка вопросы и варианты не добавлены",
+                ];
+            }
+        }else{
+            $ret = [
+                "status"=>"error",
+                "msg"=>"Ошибка вопросы и варианты не добавлены",
+            ];
+        }
+        return redirect()->back()->with("msg",$ret);
     }
 
     /**
@@ -130,6 +175,27 @@ class QuestionController extends Controller
      */
     public function destroy($id)
     {
-        //
+        $question = Question::find($id);
+        
+        if($question->answer()->count()>0){
+            $question->deleted_at = now();
+            if($question->update()){
+                $ret["msg"] = "Удалено";
+                $ret["code"] = "status";
+            }else{
+                $ret["msg"] = "Ошибка при удалении";
+                $ret["code"] = "status";
+            }
+        }else{
+            if($question->delete()){
+                $ret["msg"] = "Удалено";
+                $ret["code"] = "status";
+            }else{
+                $ret["msg"] = "Ошибка при удалении";
+                $ret["code"] = "status";
+            }
+        }
+        $headers = [];
+        return response()->json($ret, 200, $headers);
     }
 }

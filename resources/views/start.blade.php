@@ -19,10 +19,10 @@
                                 <li class="list-group-item d-flex justify-content-between align-items-center">
                                     @if(session()->get("lang")=== "ru")
                                     Название теста
-                                    <span class="badge-pill">{{$student->test->title_ru}}</span>
+                                    <span class="badge-pill" style="word-wrap: break-word; width: 300px">{{$student->test->title_ru}}</span>
                                     @else
                                         Сыноонун аталышы
-                                        <span class="badge-pill">{{$student->test->title_kg}}</span>
+                                        <span class="badge-pill" style="word-wrap: break-word; width: 300px">{{$student->test->title_kg}}</span>
                                     @endif
                                 </li>
                                 <li class="list-group-item d-flex justify-content-between align-items-center">
@@ -44,7 +44,7 @@
                             </ul>
                         </div>
                         <div class="col-sm-12">
-                            <a href="/start/{{$student->test->id}}/{{session()->get("lang")}}" class="btn btn-success btn-sm rounded-0 w-25"  id="start_test-btn" >
+                            <a href="/start/{{$student->code}}/{{session()->get("lang")}}" class="btn btn-success btn-sm rounded-0 w-25"  id="start_test-btn" >
                                 @if(session()->get("lang")=== "ru")
                                     Начать
                                 @else

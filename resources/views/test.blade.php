@@ -1,14 +1,12 @@
 @extends("layouts.app")
 
 @section("nav")
-  @include('layouts.nav')
+  {{-- @include('layouts.nav') --}}
 @endsection
 
 @section("content")
-<div id="clocks"></div>
-    <main class="full-height quest-body d-flex align-items-center">
-        <show-question test_id="{{$test_id}}" timer="{{$test->timer}}"></show-question>
-    </main>
+    {{-- <show-question test_id="{{$test_id}}" timer="{{$test->timer}}"></show-question>     --}}
+    <progress-vue :test="{{$test_id}}"></progress-vue>
 @endsection
 
 @section("script")

@@ -15,20 +15,26 @@
 @import '~bootstrap/scss/bootstrap';
 
 @import '~bootstrap-vue';
+@import '~bootstrap-vue/src/index.scss';
 
-html,
+html{
+    max-height: 100%;
+}
 body{
-    font-family: 'Montserrat Medium';
+    //font-family: 'Montserrat Medium';
+    font-family: 'Roboto';
     min-height: 100%;
     padding: 0;
-
-    color: #636b6f;
-    //font-family: 'Nunito', sans-serif;
-    font-weight: 200;
     height: 100vh;
+    // color: #ffffff;
+    //font-family: 'Nunito', sans-serif;    
+    font-weight: 200;
     margin: 0;
+    background-color: rgb(165, 213, 253);
 }
-
+b{
+    font-weight: bold;
+}
 .sidebar{
     position: fixed;
     top:0;
@@ -108,15 +114,133 @@ body{
 
 }
 
-.test-result{
-    color: #000;
-
-}
 @media print {
-    .card, .container, .col-md-10 {
-        width: 100% !important;
+    .print-parrent{
+        width: 100%;
+        margin: 0;
+        padding: 0;
+        font-size: 20px;
     }
-    .card {
+    .test-result{
+        color: #000;
         border: none;
+        font-size: 20px;
+        width: 100%;
+    }
+}
+.btns-shadow{
+    box-shadow: 0px 2px 2px 1px rgba(0, 0, 0, 0.1);
+    transition: all 0.3s;
+    &:hover{
+        box-shadow: 0 12px 10px rgba(0,0,0,0.25), 0 10px 10px rgba(0,0,0,0.22);
+    }
+}
+.w-20{
+    min-width: 20% !important;
+}
+.nav-pills .nav-link{
+    border-radius: 0;
+}
+.tab-content{
+    background-color: rgb(219, 219, 219);
+}
+.card, .modal-content{
+    border-radius: 0rem !important;
+}
+.privilege{
+    padding: 5px;
+    margin: 5px;
+    background: rgba(0, 98, 255, 0.931);
+    color: #fff;    
+}
+.uCace{
+    text-transform: uppercase;
+}
+.colWidth{
+    width: 50px;
+}
+.bg-light{
+    background: rgb(218, 216, 216);
+}
+#__BVID__41{
+    height: 80%;
+}
+#CandidateTable{
+    height: 500px !important;
+    overflow: hidden;
+    overflow-y: auto;
+}
+.addTab{
+    background: rgb(0, 195, 255);
+    color: #fff;
+    padding: 5px;
+    text-align: center;
+    &{
+        color: #fff;
+    }
+}
+#__BVID__44__BV_tab_controls_, #__BVID__253__BV_tab_controls_, #__BVID__242__BV_tab_controls_{     
+    background-color: rgba(255, 255, 255, 0.8);    
+    #__BVID__268__BV_tab_controls_{
+        overflow: hidden;
+        overflow-y: scroll;
+        height: 700px;
+    }    
+}
+.questionList{
+    height: 700px !important;
+    overflow-y: scroll;
+    overflow: auto;
+    flex-wrap: nowrap;
+    width: 200px;
+    padding-top: 10px;
+    padding-left: 10px;
+    background-color: #fff;
+    &::-webkit-scrollbar{
+        width: 0px !important;
+    }
+}
+.QuestionListContent{
+    padding: 10px;
+    position: relative;
+    background-color: transparent;
+}
+#__BVID__44{
+    min-height: 80%;
+}
+#__BVID__242__BV_tab_container{
+    height: 100%;
+}
+.TabControll{
+    background-color: rgb(243, 243, 243);
+    height: 100% !important;
+}
+.TabContent{
+    background-color: rgba(255, 255, 255, 0.774);
+    height: 100% !important;
+}
+#__BVID__268__BV_tab_container_{
+    padding: 20px;
+    padding-top: 0px;
+}
+#__BVID__268__BV_tab_controls_{
+    height: 500px !important;    
+    
+}
+.tabactive{
+    background-color: rgb(60, 151, 255);
+    color: #fff;
+    ::before, ::after{
+        content: " ";
+        position: absolute;
+        top: 0;
+        right: -17px;
+        width: 0;
+        height: 0;
+        border-top: 19px solid transparent;
+        border-bottom: 17px solid transparent;
+        border-left: 17px solid #d9e3f7;	
+        z-index: 2;
+        transition: border-color 0.2s ease;
     }
 }

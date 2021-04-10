@@ -4,8 +4,9 @@
 @section("nav")
 @include("admin.nav")
 @endsection
-@section("content")
-    <div class="container pt-4 mt-5">
+
+@section('content')
+    <div class="container pt-4 mt-2">
         <div class="row justify-content-center">
             <div class="col-md-10 pt-4">
                 <h2 class="col">{{$test->title_ru}}</h2>
@@ -24,12 +25,9 @@
                         </ul>
                     </div>
                 @endif
-                <div class="alert alert-success">
-                {!! Session::has('msg') ? Session::get("msg")['msg'] : '' !!}
-                </div>
                 <div class="card rounded-0 mt-3 border-0">
-                    <div class="card-body">
-                        <table class="table table-bordered">
+                    <div class="card-body overflow-auto" style="height: 500px">
+                        <table class="table table-bordered ">
                             <thead>
                                 <tr>
                                     <th>#</th>
@@ -40,16 +38,22 @@
                                     <th>Дата создания</th>
                                 </tr>
                             </thead>
-                            <tbody>
+                            <tbody >
+                                @php
+                                    $i = 1;
+                                @endphp
                                 @foreach($test->question as $item)
                                     <tr>
-                                        <td>{{$item->id}}</td>
+                                        <td>{{$i}}</td>
                                         <td>{{$item->question_ru}}<br>{{$item->question_kg}}</td>
                                         <td>А) {{$item->a_ru}}<br>Б) {{$item->b_ru}}<br>В) {{$item->c_ru}}<br>Г) {{$item->d_ru}}</td>
                                         <td>А) {{$item->a_kg}}<br>Б) {{$item->b_kg}}<br>В) {{$item->c_kg}}<br>Г) {{$item->d_kg}}</td>
                                         <td>{{$item->answer}}</td>
                                         <td>{{$item->created_at}}</td>
                                     </tr>
+                                    @php
+                                        $i++;
+                                    @endphp
                                 @endforeach
                             </tbody>
                         </table>

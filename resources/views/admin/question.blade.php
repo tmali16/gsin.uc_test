@@ -6,7 +6,7 @@
         <div class="quest row" >
             @foreach ($tests as $item)        
                 <div class="card rounded-0 pl-2 pr-2 border-left-0 border-right-0 border-bottom-0 border-top  border-primary mr-3" style="width: 15rem;">
-                    <span class="col h4 pl pt-3 pb-0">{{$item->title_ru}}</span>
+                    <span class="col h4 pl pt-3 pb-0">{{mb_strimwidth($item->title_ru, 0, 50, "...")}}</span>
                     <div class="pl-3">
                         <small class="">{{ mb_strimwidth($item->description_ru, 0, 40, "...") }}</small>
                     </div>                

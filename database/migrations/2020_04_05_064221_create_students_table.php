@@ -15,13 +15,14 @@ class CreateStudentsTable extends Migration
     {
         Schema::create('students', function (Blueprint $table) {
             $table->id();
+            $table->unique("inn");
             $table->string("fn");
             $table->string("mn");
             $table->string("ln")->nullable()->default(null);
-            $table->integer("code")->default(random_int(000000, 999999));
+            $table->unique("code");
             $table->integer("point")->default(null);
             $table->json("result")->nullable()->default(null);
-            $table->boolean('passed')->default(false);
+            $table->integer('passed')->default(false);
             $table->bigInteger("test_id")->unsigned()->index();
             $table->bigInteger("user_id")->unsigned()->index();
             $table->timestamps();

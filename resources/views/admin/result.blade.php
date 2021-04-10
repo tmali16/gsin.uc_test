@@ -1,15 +1,24 @@
-<div class="card rounded-0 test-result" style="width: 100%; min-height: 40%; margin-top: 50px;">
+<div class="card border-0 test-result" style="width: 100%; min-height: 40%; margin-top: 50px;">
+    {{-- <div class="card-header">
+        <a href="/test/finish/download" class="btn btn-sm btn-link bg-success">Скачать</a>
+    </div> --}}
     <div class="card-body " style="padding-top: 40px">
         <div class="col-md-12 d-print-block">
             <div class="row ">
-                <div class="col-md-5 text-center ">
-                    Кыргыз Республикасынын Өкмөтүнө караштуу <br>Жазаларды аткаруу мамлекеттик кызматы
+                <div class="col-md-5 col-sm-5 col-lg-5 text-center ">
+                    {{-- Кыргыз Республикасынын Өкмөтүнө караштуу <br>Жазаларды аткаруу мамлекеттик кызматы --}}
+                    <h3>
+                        {{$settings->where("key", "gsin_name")->where('lang',"kg")->first()->mark}}
+                    </h3>
                 </div>
-                <div class="col-md-2">
+                <div class="col-md-2 col-sm-2 col-lg-2 text-center">
                 <img src="{{asset("/img/logo.png")}}" alt="" class="" style="height: 100px;">
                 </div>
-                <div class="col-md-5 text-center title-text-right">
-                    Государственная служба исполнения наказаний при <br>Правительстве Кыргызской Республики
+                <div class="col-md-5 col-sm-5 col-lg-5 text-center title-text-right">
+                    {{-- Государственная служба исполнения наказаний при <br>Правительстве Кыргызской Республики --}}
+                    <h3>
+                        {{$settings->where("key", "gsin_name")->where('lang',"ru")->first()->mark}}
+                    </h3>
                 </div>
             </div>
         </div>
@@ -37,7 +46,7 @@
                 </div>
                 <div class="d-flex">
                     <h4>
-                    Окмотко караштуу ЖАМКнын ОБ
+                    КР Өкмөтүнө караштуу ЖАМКнын ОБ
                     </h4>
                 </div>
                 @endif
@@ -47,17 +56,17 @@
                     @if(session()->get("lang")=== "ru")
                         ФИО
                     @else
-                        Аты жону
+                        Аты жөнү
                     @endif
                         <span class="badge-pill">{{$student->fn}} {{$student->mn}} {{$student->ln}}</span>
                 </li>
                 <li class="list-group-item d-flex justify-content-between align-items-center">
                     @if(session()->get("lang")=== "ru")
                         Название теста
-                        <span class="badge-pill">{{$student->test->title_ru}}</span>
+                        <span class="badge-pill" style="word-wrap: break-word; width: 65%; text-align: justify;">{{$student->test->title_ru}}</span>
                     @else
                         Сыноо аталышы
-                        <span class="badge-pill">{{$student->test->title_kg}}</span>
+                        <span class="badge-pill " style="word-wrap: break-word; width: 65%; text-align: justify;">{{$student->test->title_kg}}</span>
                     @endif
                 </li>
                 <li class="list-group-item d-flex justify-content-between align-items-center">
@@ -102,24 +111,44 @@
                 </li>
             </ul>
             <br>            
-            <div class="col-md-12 row justify-content-center">
-            @foreach(json_decode($student->result, true)['test'] as $key=>$test)
-                <div class="col-md-10 d-flex align-items-center mb-3 border-bottom" style="height: 50px;">  
-                    <div class="d-flex align-items-center justify-content-center text-white border  text-center" style="height: 40px; width: 40px;">
-                        @if($test['correct'] == 1)
-                        <img src="{{asset('img/check.png')}}" alt="" class="h-100 w-100 p-1" >
+            <div class="col-md-12 row justify-content-center text-center">
+                <h4>
+                    @if($student->point >= $student->test->min_correct)
+                        @if(session()->get("lang")=== "ru")
+                            <span class="text-success">Тест сдал</span>
                         @else
-                        <img src="{{asset('img/close.png')}}" alt="" class="h-100 w-100 p-1">
+                            <span class="text-success">Сынактан өттүү</span>
+                        @endif
+                    @else
+                        @if(session()->get("lang")=== "ru")
+                            <span class="text-danger">Тест не сдал</span>
+                        @else
+                            <span class="text-danger">Сынактан өткөн жок</span>
                         @endif                        
-                    </div>                 
-                    <div class="media-body ml-3">
-                        <h5 class="m-0">
-                            @if(session()->get("lang")=== "ru")<i class="text-secondary">Вопрос:</i>@else<i>Суроо:</i> @endif<b> &nbsp;{{$test['question']}}</b></h5>
-                            @if(session()->get("lang")=== "ru")<i class="text-secondary ml-2">ответ:</i>@else<i class="text-secondary ml-2">жооп:</i> @endif &nbsp; <i>{{$test['user_answer']}}</i> 
+                    @endif
+                    <br>
+                    <span class="text-secondary ">{{$student->point ." / ".$student->test->question_count}}</span>
+                </h4>
+            </div>
+            <div class="col-md-12 row mt-4">
+                <div class="col-md-12">
+                    @if(session()->get("lang")=== "ru") <b>Начальник</b> @else <b>Жетекчи</b> @endif
+                </div>
+                <div class="col-md-12 d-flex justify-content-between @if($settings->where('key','zvan')->where('lang',session()->get("lang"))->first()->values) mt-3 @endif">
+                    <span class="border-bottom justify-content-start border-dark" style="width: 250px">
+                    {{$settings->where('key','zvan')->where('lang',session()->get("lang"))->first()->values}}
+                    </span>
+                    <div class="justify-content-end " style="width: 300px">
+                        <label for="" style="width: 200px" class="border-bottom border-dark float-right">
+                            {{$settings->where('key','boss')->where('lang', session()->get("lang"))->first()->values}}
+                        </label>
                     </div>
                 </div>
-            @endforeach
-            </div>            
+                <div class="col-md-12 d-flex justify-content-between mt-2">
+                    <div class=""></div>
+                    <div class="d-flex " style="width: 300px"><span class="float-left">{{  date("d.m.Y")}} {{session()->get("lang")=== "ru" ? 'г.' :'ж.'}}</span></div>
+                </div>
+            </div>
         </div>
     </div>
 </div>

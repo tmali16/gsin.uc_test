@@ -1,7 +1,7 @@
 <template>
     <div class="container h-100">
         <div class="row h-100 justify-content-center">
-            <div class="col-md-12 text-center p-4" style="font-size: 24px; text-white" >
+            <div class="col-md-12 text-center p-2" style="font-size: 24px; text-white" >
                 <countdown :time="test_timer" @end="countdownEnd" @progress="countdownProgress">
                         <template slot-scope="props"> {{ props.minutes }}:{{ props.seconds }}</template>
                 </countdown>
@@ -9,7 +9,7 @@
             <div class="col-md-10 h-100 d-flex align-items-center justify-content-center">                
                 <div class="card rounded-0 " style="width: 100%; height: 40%">
                     <div class="card-body">
-                        <div class="col-md-12" v-for="(question,index) in questions" v-if="index == current">
+                        <div class="col-md-12" v-for="(question,index) in questions" v-if="index == current" :key="index">
                             <form action="#" v-on:submit.prevent="answerAdd(question.id)" id="sendForm">
                                     <h4>{{question.quest}}</h4> &nbsp; {{current+1}} / {{questions.length}}
                                     <hr>
@@ -23,7 +23,7 @@
                                         <div class="form-check mb-2" v-if="question.var_b !== null">
                                             <input class="form-check-input" type="radio" name="gridRadios" v-model="result.user_answer" :id="'radio'+index+1" value="B" aria-checked="false">
                                             <label class="form-check-label col"  :for="'radio'+index+1">
-                                                {{question.var_b.length}}
+                                                {{question.var_b}}
                                             </label>
                                         </div>
                                         <div class="form-check mb-2" v-if="question.var_c !== null">
@@ -78,11 +78,9 @@
         },
         created () {
             this.fetchQuestion()
-            
         },
         methods:{
-            fetchQuestion(){
-            
+            fetchQuestion(){            
                 axios.get("/get/question/"+this.test_id).then(response =>{
                     this.questions = response.data.questions;
                     this.test = response.data.test;
@@ -90,8 +88,7 @@
                     this.student_id = response.data.student_id;                    
                 }).catch(error=>{
                     console.log(error.data)
-                })                    
-            
+                })
                 this.setTimer()
             },
             setCookie(data){
@@ -136,28 +133,27 @@
                     student_id: this.student_id
                 }).then(response=>{
                     window.location.href = url;
+                    this.$cookie.set("time", '', -1);
+                    this.$cookie.set("result", '', -1)
                 }).catch(error=>{
                     console.log(error.data)
                 })
             },
-            setTimer(){
-                
+            setTimer(){                
                 if(this.$cookie.get("time")){
                     var i = this.$cookie.get("time");
                     this.test_timer = parseInt(i)
                 }else{
                     this.test_timer = this.timer * 60 * 1000
                 }
-                 
             },
             countdownProgress(data){
                 this.$cookie.set("time", (data.minutes !=0 ? (data.minutes + 0) : 0) + data.seconds * 1000, 1)
                 this.$cookie.set("result", JSON.stringify(this.answers), 1)
             },
             countdownEnd(data){
+                //this.finishTest();
                 this.$cookie.delete("time");
-                //this.answers = this.$cookie.get("result")
-                this.finishTest();
                 this.$cookie.delete("result")
                 //window.location.href = "/"
             }

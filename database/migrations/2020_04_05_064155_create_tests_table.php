@@ -22,6 +22,7 @@ class CreateTestsTable extends Migration
             $table->boolean("state")->default(false);
             $table->integer("timer");
             $table->integer("question_count");
+            $table->integer("min_correct")->default("0");
             $table->integer("question_rand");
             $table->bigInteger("user_id")->unsigned()->index();
             $table->timestamps();

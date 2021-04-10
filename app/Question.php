@@ -12,4 +12,8 @@ class Question extends Model
     {
         return $this->hasOne("App\Test");
     }
+    public function answer()
+    {
+        return $this->hasMany("App\Answer", 'question_id', 'id');
+    }
 }

@@ -4,32 +4,62 @@
     @include('admin.nav')
 @endsection
 @section("content")
-<div class="container-fluid">
-    <div class="row">
-        @include('admin.layouts.sidebar')
-        <main class="col-md-10 ml-sm-auto px4 pt-4" style="min-height: 100vh; background-color: #ecf0f5;">            
-            <div class="tab-content" id="v-pills-tabContent">
-              <div class="tab-pane fade show " id="v-pills-dashboard" role="tabpanel" aria-labelledby="v-pills-dashboard-tab">
-                  1
-              </div>
-              <div class="tab-pane fade show pt-5" id="v-pills-students" role="tabpanel" aria-labelledby="v-pills-students-tab">
-                  @include('admin.students')
-              </div>
-              <div class="tab-pane fade show  pt-5" id="v-pills-orders" role="tabpanel" aria-labelledby="v-pills-orders-tab">
-                  @include('admin.test')
-              </div>
-              <div class="tab-pane fade show active pt-3" id="v-pills-question" role="tabpanel" aria-labelledby="v-pills-question-tab">
-                @if (Request::path() === "admin")
-                  @include('admin.question')
-                @else
-                  @include('admin.layouts.add_question')
-                @endif                  
-              </div>
-              <div class="tab-pane fade show" id="v-pills-reports" role="tabpanel" aria-labelledby="v-pills-students-tab">
-                  4
-              </div>
-            </div>
-        </main>
-    </div>
-</div>
+<b-card no-body class="h-100 d-print-none">
+  <b-tabs pills card vertical content  content-class="h-100" class="h-100" active-nav-item-class="e" >
+    <b-tab title="Статистика"  class="h-100" active>
+      <template v-slot:title>
+        <b-icon icon="clipboard-data"></b-icon>
+        &nbsp; Статистика
+      </template>      
+      <dashboard-vue></dashboard-vue>      
+    </b-tab>
+    @can("candidate.read")
+    <b-tab title="Кандидаты">
+      <template v-slot:title>
+      <b-icon icon="person-lines-fill"></b-icon>
+      &nbsp; Кандидаты
+      </template>
+      <b-card-text><candidate-vue></candidate-vue></b-card-text>
+    </b-tab>
+    @endcan
+    @can("tests.read")
+    <b-tab title="Тест " >
+      <template v-slot:title>
+        <b-icon icon="card-list"></b-icon>
+        &nbsp; Тест
+      </template>
+      {{-- <b-card-text><test-vue></test-vue></b-card-text> --}}
+      <span class="mb-3" style="font-size: 32px">Тесты</span>
+      <test-list></test-list>
+    </b-tab>
+    @endcan
+    {{-- @can("questions.read")
+    <b-tab title="Вопросы ">
+      <template v-slot:title>
+        <b-icon icon="question-octagon"></b-icon>
+        &nbsp; Вопросы
+      </template>
+      {{-- @include('admin.question')
+    </b-tab>
+    @endcan --}}
+    @can("users.read")
+    <b-tab title="Пользователи " >
+      <template v-slot:title>
+        <b-icon icon="person-bounding-box"></b-icon>
+        &nbsp; Пользователи
+      </template>
+      <user-vue></user-vue>
+    </b-tab>
+    @endcan
+    @can("settings.read")
+      <b-tab title="Настройки " >
+        <template v-slot:title>
+          <b-icon icon="gear-wide-connected"></b-icon>
+          &nbsp; Настройки
+        </template>
+        <settings-vue></settings-vue>
+      </b-tab>
+    @endcan
+  </b-tabs>
+</b-card>
 @endsection
