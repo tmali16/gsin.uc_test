@@ -2,15 +2,13 @@
 @section("content")
 <div class="flex-center position-ref full-height">
     <div class="row title_top">
-        <div class="col-md-5 text-center title-text-left">
-            {{-- Кыргыз Республикасынын Өкмөтүнө караштуу <br>Жазаларды аткаруу мамлекеттик кызматы --}}
+        <div class="col-md-5 text-center title-text-left">            
             {{$settings->where('lang',"kg")->first()->values}}
         </div>
         <div class="col-md-2">
         <img src="{{asset("/img/logo.png")}}" alt="" class="shadow" style="height: 120px;">
         </div>
-        <div class="col-md-5 text-center title-text-right">
-            {{-- Государственная служба исполнения наказаний при <br>Правительстве Кыргызской Республики --}}
+        <div class="col-md-5 text-center title-text-right">            
             {{$settings->where('lang',"ru")->first()->values}}
         </div>
     </div>
