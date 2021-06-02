@@ -10,14 +10,14 @@
                 <div class="col-md-12 mt-4 d-print-none">
                     <div class="card border-0 shadow">
                         <div class="card-body p-2">
-                        <a href="/lang/kg" class="btn btn-link">Кыр</a>
+                        <a href="/lang/kg" class="btn btn-link @if(session()->get('lang')=== 'kg') text-white bg-success @endif">Кыр</a>
                         /
-                        <a href="/lang/ru" class="btn btn-link">Рус</a>
+                        <a href="/lang/ru" class="btn btn-link @if(session()->get('lang')=== 'ru') text-white bg-success @endif">Рус</a>
                         </div>
                     </div>
                 </div>
                 <div class="col-md-12 w-100 print-parrent h-100 d-flex align-items-center justify-content-center">                    
-                    @include('admin.result')                    
+                    @include('admin.result')
                 </div>
             </div>
         </div>

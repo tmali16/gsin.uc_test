@@ -26,7 +26,7 @@
         </path>
         </svg>
     </div>
-    @include('res')
+    @include('print_res')
     <script>
         window.onload = function () {
             //document.body.classList.add('loaded_hiding');

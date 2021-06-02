@@ -5,19 +5,17 @@
     <div class="card-body " style="padding-top: 40px">
         <div class="col-md-12 d-print-block">
             <div class="row ">
-                <div class="col-md-5 col-sm-5 col-lg-5 text-center ">
-                    {{-- Кыргыз Республикасынын Өкмөтүнө караштуу <br>Жазаларды аткаруу мамлекеттик кызматы --}}
+                <div class="col-md-5 col-sm-5 col-lg-5 text-center ">                    
                     <h3>
-                        {{$settings->where("key", "gsin_name")->where('lang',"kg")->first()->mark}}
+                        {{$settings->where("key", "gsin_name")->where('lang',"kg")->first()->values}}
                     </h3>
                 </div>
                 <div class="col-md-2 col-sm-2 col-lg-2 text-center">
                 <img src="{{asset("/img/logo.png")}}" alt="" class="" style="height: 100px;">
                 </div>
-                <div class="col-md-5 col-sm-5 col-lg-5 text-center title-text-right">
-                    {{-- Государственная служба исполнения наказаний при <br>Правительстве Кыргызской Республики --}}
+                <div class="col-md-5 col-sm-5 col-lg-5 text-center title-text-right">                    
                     <h3>
-                        {{$settings->where("key", "gsin_name")->where('lang',"ru")->first()->mark}}
+                        {{$settings->where("key", "gsin_name")->where('lang',"ru")->first()->values}}
                     </h3>
                 </div>
             </div>
@@ -31,25 +29,19 @@
                 @endif
             </h2>
             <div class="col-md-12 d-flex justify-content-between mt-5 mb-4">
-                @if(session()->get("lang")=== "ru")
+                
                 <div class="d-flex ">
+                    @if(session()->get("lang")=== "ru")
                     <h4>г.Бишкек</h4>
-                </div>
-                <div class="d-flex">
-                    <h4>
-                    УЦ ГСИН при ПКР
-                    </h4>
-                </div>
-                @else
-                <div class="d-flex ">
+                    @else
                     <h4>Бишкек ш.</h4>
+                    @endif
                 </div>
                 <div class="d-flex">
                     <h4>
-                    КР Өкмөтүнө караштуу ЖАМКнын ОБ
+                    {{$settings->where("key", "test_place")->where('lang', (session()->get("lang") ?? 'kg'))->first()->values}}
                     </h4>
-                </div>
-                @endif
+                </div>                
             </div>
             <ul class="list-group list-group-flush">
                 <li class="list-group-item d-flex justify-content-between align-items-center">

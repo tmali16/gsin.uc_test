@@ -4,14 +4,14 @@
     <div class="row title_top">
         <div class="col-md-5 text-center title-text-left">
             {{-- Кыргыз Республикасынын Өкмөтүнө караштуу <br>Жазаларды аткаруу мамлекеттик кызматы --}}
-            {{$settings->where('lang',"kg")->first()->mark}}
+            {{$settings->where('lang',"kg")->first()->values}}
         </div>
         <div class="col-md-2">
         <img src="{{asset("/img/logo.png")}}" alt="" class="shadow" style="height: 120px;">
         </div>
         <div class="col-md-5 text-center title-text-right">
             {{-- Государственная служба исполнения наказаний при <br>Правительстве Кыргызской Республики --}}
-            {{$settings->where('lang',"ru")->first()->mark}}
+            {{$settings->where('lang',"ru")->first()->values}}
         </div>
     </div>
     <div class="content text-center">

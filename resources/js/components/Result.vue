@@ -27,14 +27,14 @@
                     <b-row>
                         <b-col cols="5" class="text-center">
                             <!-- Кыргыз Республикасынын Өкмөтүнө караштуу <br>Жазаларды аткаруу мамлекеттик кызматы -->
-                            <h4>{{settings.filter(x=>x.key == "gsin_name").find(d=>d.lang == "kg").mark}}</h4>
+                            <h4>{{where('gsin_name', 'kg')}}</h4>
                         </b-col>
                         <b-col cols="2" class="text-center">
                             <b-img center src="/public/img/logo.png" style="height: 100px;" alt="Center image"></b-img>
                         </b-col>
                         <b-col cols="5" class="text-center">
                             <!-- Государственная служба исполнения наказаний при <br>Правительстве Кыргызской Республики -->
-                            <h4>{{settings.filter(x=>x.key == "gsin_name").find(d=>d.lang == "ru").mark}}</h4>
+                            <h4>{{where('gsin_name', 'ru')}}</h4>
                         </b-col>
                     </b-row>
                 </b-col>
@@ -42,11 +42,13 @@
                     <h2 class="text-center">{{ lang == 'ru' ? 'Результаты тестирования' : 'Сыноонун жыйынтыгы' }}</h2>
                     <b-col cols="12" class="d-flex justify-content-between mt-5 mb-4">
                         <div class="d-flex"><h4>{{ lang == 'ru' ? 'г.Бишкек' : 'Бишкек ш.' }}</h4></div>
-                        <div class="d-flex"><h4>{{ lang == 'ru' ? 'УЦ ГСИН при МЮ КР' : 'Өкмөткө караштуу ЖАМКнын ОБ' }}</h4></div>
+                        <div class="d-flex"><h4>                            
+                            {{where('test_place')}}
+                        </h4></div>                        
                     </b-col>
                     <b-list-group class="rounded-0">
                         <b-list-group-item class="d-flex justify-content-between align-items-center rounded-0 border-bottom-1 pl-1 pr-1 border-top-0 border-right-0 border-left-0">
-                            <b>{{ lang == 'ru' ? 'ФИО' : 'Аты жону' }}</b>
+                            <b>{{ lang == 'ru' ? 'ФИО' : 'Аты жөнү' }}</b>
                             <span variant="transparent" >{{ (candidate != null ? candidate.fn :'') + ' ' + (candidate != null ? candidate.mn :'') +' '+(candidate.ln != null ? candidate.ln :'') }}</span>
                         </b-list-group-item>
                     </b-list-group>
@@ -168,9 +170,14 @@
             print(){
                 this.$htmlToPaper('result');
             },
-            where(key){
+            where(key, lang=null){
+                let language = this.lang;
+                const langList = ['ru', 'kg'];
+                if(lang != null && langList.includes(lang)){
+                    language = lang;
+                }
                 var f = this.settings.filter(x=>x.key == key)
-                var re = f.find(x => x.lang === this.lang).values
+                var re = f.find(x => x.lang === language).values
                 return re;
             }
         }
